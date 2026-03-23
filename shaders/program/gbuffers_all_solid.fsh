@@ -281,7 +281,7 @@ void main() {
 #endif
 
     //--//
-
+    
     vec4 base_color = read_tex(gtexture) * tint;
 #ifdef NORMAL_MAPPING
     vec3 normal_map = read_tex(normals).xyz;
@@ -418,6 +418,7 @@ void main() {
 
 #if defined PROGRAM_GBUFFERS_PARTICLES
     // Kill the little rain splash particles
+    
     if (base_color.r < 0.29 && base_color.g < 0.45 && base_color.b > 0.75) {
         discard;
     }

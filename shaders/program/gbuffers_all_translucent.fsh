@@ -155,6 +155,7 @@ vec3 light_color, ambient_color;
 #if defined PROGRAM_GBUFFERS_TEXTURED || \
     defined PROGRAM_GBUFFERS_PARTICLES_TRANSLUCENT
 #define NO_NORMAL
+
 #endif
 
 #ifdef DIRECTIONAL_LIGHTMAPS
@@ -357,7 +358,11 @@ void main() {
     vec2 coord = gl_FragCoord.xy * view_pixel_size * rcp(taau_render_scale);
 
     // Clip to TAAU viewport
-
+#if defined PROGRAM_GBUFFERS_TEXTURED || defined PROGRAM_GBUFFERS_PARTICLES_TRANSLUCENT
+    if(tint == vec4(1.0)) {
+        discard;
+    }
+#endif
 #if defined TAA && defined TAAU
     if (clamp01(coord) != coord) {
         discard;
@@ -694,4 +699,8 @@ void main() {
     refraction_data.xy = split_2x8(normal_tangent.x * 0.5 + 0.5);
     refraction_data.zw = split_2x8(normal_tangent.y * 0.5 + 0.5);
 #endif
+
+
+    discard;
+
 }
