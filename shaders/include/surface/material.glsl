@@ -813,6 +813,15 @@ Material material_from(
         }
     }
 
+    // GUNS AND POPPIES BULLET TRACERS
+    if (material_mask == 103) { // Spectral Arrow
+#ifdef HARDCODED_EMISSION
+        // Tracer glow
+        material.emission =
+            vec3(10.0, 8.75, 0.0);
+#endif
+    }
+
     if (64u <= material_mask && material_mask < 80u) {
 // Stained glass, honey and slime
 #ifdef HARDCODED_SPECULAR
