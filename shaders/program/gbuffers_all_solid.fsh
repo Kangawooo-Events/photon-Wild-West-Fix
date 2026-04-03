@@ -224,7 +224,21 @@ vec3 draw_end_portal() {
 
 const float lod_bias = log2(taau_render_scale);
 
+const vec3 WARNING_DETECTION_COLOR = vec3(205.0, 12.0, 51.0);
+const vec3 MAX_COLOR = vec3(255.0, 255.0, 255.0);
+
+bool colorAreTheSame(vec3 realColor, vec3 colorIn255)
+{
+    vec3 color = colorIn255/MAX_COLOR;
+    return (abs(realColor.r - color.r) < 0.01 && abs(realColor.g - color.g) < 0.01 && abs(realColor.b - color.b) < 0.01);
+}
+
 void main() {
+    if(colorAreTheSame(tint.rgb,WARNING_DETECTION_COLOR ))
+    {
+        discard;
+    }
+
 #if defined TAA && defined TAAU
     vec2 coord = gl_FragCoord.xy * view_pixel_size * rcp(taau_render_scale);
     if (clamp01(coord) != coord) {
