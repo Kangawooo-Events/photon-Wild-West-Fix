@@ -701,6 +701,5 @@ void main() {
 #endif
 
 
-    discard;
 
 }
